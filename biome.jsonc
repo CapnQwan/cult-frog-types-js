@@ -1,1 +1,13 @@
-{ "extends": ["@cult-frog/tooling/biome/base"] }
+{
+  "extends": ["@cult-frog/tooling/biome/base"],
+  "linter": {
+    "rules": {
+      "correctness": {
+        "useImportExtensions": {
+          "level": "error",
+          "options": { "forceJsExtensions": true }
+        }
+      }
+    }
+  }
+}

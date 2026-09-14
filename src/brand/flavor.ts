@@ -1,0 +1,19 @@
+declare const brand: unique symbol;
+
+/**
+ * A weaker, opt-in variant of {@link Brand}.
+ *
+ * Because the marker is *optional*, a plain `T` is still assignable to a
+ * `Flavor<T, F>` (and vice versa), but two differently-flavored types are not
+ * freely interchangeable. This gives you gentle, documentation-style nominal
+ * hints without the friction of always constructing a fully branded value —
+ * useful when you want guidance rather than hard enforcement.
+ *
+ * @template T The underlying runtime type.
+ * @template F A unique string tag identifying the flavor.
+ *
+ * @example
+ * type Meters = Flavor<number, "Meters">;
+ * const distance: Meters = 5; // ok: plain numbers are still accepted
+ */
+export type Flavor<T, F extends string> = T & { readonly [brand]?: F };
