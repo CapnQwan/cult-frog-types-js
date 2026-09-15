@@ -30,3 +30,26 @@ export type Json = null | boolean | number | string | Json[] | { [key: string]: 
  * }
  */
 export type JsonObject = { [key: string]: Json };
+
+/**
+ * A JSON value that is specifically an array of {@link Json}.
+ *
+ * The array counterpart to {@link JsonObject}, for the cases where a payload
+ * must be a list rather than a map or a bare primitive.
+ *
+ * @example
+ * const rows: JsonArray = [{ id: 1 }, { id: 2 }];
+ */
+export type JsonArray = Json[];
+
+/**
+ * Any JSON value that is not a container — `null`, `boolean`, `number` or
+ * `string`.
+ *
+ * Useful as a constraint for leaf values, such as query-string parameters or
+ * flat key/value metadata where nesting is not allowed.
+ *
+ * @example
+ * type Meta = Record<string, JsonPrimitive>;
+ */
+export type JsonPrimitive = null | boolean | number | string;

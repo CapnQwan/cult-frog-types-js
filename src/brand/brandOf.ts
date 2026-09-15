@@ -1,4 +1,4 @@
-import type { Brand } from './brand.js';
+import type { BrandKey, BrandMarker } from './symbol.js';
 
 /**
  * Extracts the brand tag string from a {@link Brand}.
@@ -12,4 +12,6 @@ import type { Brand } from './brand.js';
  * type UserId = Brand<string, "UserId">;
  * type Tag = BrandOf<UserId>; // "UserId"
  */
-export type BrandOf<T> = T extends Brand<unknown, infer B> ? B : never;
+export type BrandOf<T> = T extends { readonly [K in BrandKey]: BrandMarker<unknown, infer B> }
+  ? B
+  : never;

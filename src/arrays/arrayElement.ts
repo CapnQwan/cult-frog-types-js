@@ -5,6 +5,9 @@
  * `readonly` arrays. Combined with `typeof`, it's a clean way to derive a union
  * from a `const` array without duplicating the values.
  *
+ * `T` is constrained to an array type so that passing a non-array is a compile
+ * error rather than resolving silently to `never`.
+ *
  * @template T The array (or `readonly` array) type to unwrap.
  *
  * @example
@@ -12,5 +15,6 @@
  * type Fruit = ArrayElement<typeof fruits>; // "apple" | "banana" | "cherry"
  *
  * type N = ArrayElement<number[]>; // number
+ * // type Bad = ArrayElement<string>; // compile error: not an array type
  */
-export type ArrayElement<T> = T extends readonly (infer U)[] ? U : never;
+export type ArrayElement<T extends readonly unknown[]> = T[number];

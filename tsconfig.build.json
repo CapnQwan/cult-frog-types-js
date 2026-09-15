@@ -1,5 +1,14 @@
 {
   "extends": "@cult-frog/tooling/tsconfig/build.json",
+  // `rootDir` and `outDir` are re-declared here on purpose. TypeScript resolves
+  // relative paths in a tsconfig against the file that declares them, so the
+  // shared config's "src"/"dist" resolve inside node_modules/@cult-frog/tooling
+  // rather than against this package. Without these overrides the build fails
+  // with TS6059 and emits .js/.d.ts files next to the sources in src/.
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/*.test-d.ts", "**/__tests__/**"]
 }

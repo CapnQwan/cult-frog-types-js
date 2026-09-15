@@ -1,21 +1,24 @@
+import type { OptionalKeys } from './optionalKeys.js';
+
 /**
- * Makes the selected keys `K` of `T` required while leaving the rest unchanged.
+ * Extracts the union of key names in `T` that are *not* declared optional.
  *
- * The counterpart to {@link OptionalKeys}. Where TypeScript's built-in
- * `Required<T>` makes *every* property required, this type lets you tighten only
- * the specific keys you name — useful for narrowing a broadly-optional type once
- * you know certain fields are guaranteed to be present.
+ * The exact complement of {@link OptionalKeys}, so the two always partition
+ * `keyof T`. As with `OptionalKeys`, this reflects the `?` modifier rather than
+ * the value type: a key declared `a: string | undefined` is required and appears
+ * here, while `a?: string` does not.
  *
- * @template T The object type to transform.
- * @template K The keys of `T` to make required.
+ * If you want to *make* keys required rather than list them, use
+ * {@link SetRequired}.
+ *
+ * @template T The object type to inspect.
  *
  * @example
  * interface User {
- *   id?: string;
+ *   id: string;
  *   name?: string;
  *   email?: string;
  * }
- * // `id` is now required; `name` and `email` stay optional.
- * type PersistedUser = RequiredKeys<User, "id">;
+ * type Req = RequiredKeys<User>; // "id"
  */
-export type RequiredKeys<T, K extends keyof T> = T & Required<Pick<T, K>>;
+export type RequiredKeys<T> = Exclude<keyof T, OptionalKeys<T>>;

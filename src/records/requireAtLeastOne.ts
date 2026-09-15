@@ -1,3 +1,5 @@
+import type { Simplify } from './simplify.js';
+
 /**
  * Requires that at least one of the keys `K` in `T` is provided, while keeping
  * them all individually optional.
@@ -21,6 +23,6 @@
  * const ok: Update = { name: "Ada" }; // valid: at least one key present
  * // const bad: Update = {};          // compile error: needs at least one key
  */
-export type RequireAtLeastOne<T, K extends keyof T = keyof T> = K extends keyof T
-  ? Required<Pick<T, K>> & Partial<Omit<T, K>>
-  : never;
+export type RequireAtLeastOne<T, K extends keyof T = keyof T> = Simplify<
+  Omit<T, K> & { [P in K]-?: Required<Pick<T, P>> & Partial<Pick<T, Exclude<K, P>>> }[K]
+>;

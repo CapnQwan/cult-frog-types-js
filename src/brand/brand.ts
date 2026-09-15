@@ -1,4 +1,4 @@
-declare const brand: unique symbol;
+import type { BrandKey, BrandMarker } from './symbol.js';
 
 /**
  * Creates a *nominal* (branded) type by tagging a base type `T` with a unique
@@ -27,4 +27,4 @@ declare const brand: unique symbol;
  * getUser(toUserId("abc")); // ok
  * // getUser("abc");        // compile error: string is not a UserId
  */
-export type Brand<T, B extends string> = T & { readonly [brand]: B };
+export type Brand<T, B extends string> = T & { readonly [K in BrandKey]: BrandMarker<T, B> };

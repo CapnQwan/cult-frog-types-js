@@ -1,8 +1,11 @@
 export type { Entries } from './entries.js';
 export type { KeysOfType } from './keysOfType.js';
-export type { LooseAutocomplete } from './looseAutoComplete.js';
+export type { LooseAutocomplete } from './looseAutocomplete.js';
 export type { OmitStrict } from './omit.js';
 export type { OptionalKeys } from './optionalKeys.js';
 export type { RequireAtLeastOne } from './requireAtLeastOne.js';
 export type { RequiredKeys } from './requiredKeys.js';
+export type { SetOptional } from './setOptional.js';
+export type { SetRequired } from './setRequired.js';
+export type { Simplify } from './simplify.js';
 export type { ValueOf } from './valueOf.js';

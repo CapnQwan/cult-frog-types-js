@@ -1,12 +1,16 @@
 {
   "name": "@cult-frog/types",
   "version": "0.0.0",
-  "description": "A TypeScript containing utility types for Cult Frog Studios",
+  "description": "Reusable TypeScript utility types for the Cult Frog ecosystem",
   "license": "MIT",
   "author": "Quin Partridge",
   "keywords": [
-    "error",
-    "typescript"
+    "typescript",
+    "types",
+    "utility-types",
+    "type-utilities",
+    "branded-types",
+    "type-testing"
   ],
   "repository": {
     "type": "git",
@@ -40,8 +44,8 @@
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest watch",
+    "test": "vitest run --typecheck",
+    "test:watch": "vitest watch --typecheck",
     "test:coverage": "vitest run --coverage",
     "check": "biome check . --error-on-warnings",
     "check:ci": "biome ci . --error-on-warnings",

@@ -1,4 +1,4 @@
-declare const brand: unique symbol;
+import type { BrandKey, BrandMarker } from './symbol.js';
 
 /**
  * A weaker, opt-in variant of {@link Brand}.
@@ -12,8 +12,15 @@ declare const brand: unique symbol;
  * @template T The underlying runtime type.
  * @template F A unique string tag identifying the flavor.
  *
+ * Because it shares a marker key with {@link Brand}, a `Brand<T, B>` is
+ * assignable to a `Flavor<T, B>` — you can hand a fully branded value to an API
+ * that only asks for the flavored form, but not the other way around.
+ *
  * @example
  * type Meters = Flavor<number, "Meters">;
  * const distance: Meters = 5; // ok: plain numbers are still accepted
+ *
+ * type Feet = Flavor<number, "Feet">;
+ * // const wrong: Feet = distance; // compile error: flavors don't mix
  */
-export type Flavor<T, F extends string> = T & { readonly [brand]?: F };
+export type Flavor<T, F extends string> = T & { readonly [K in BrandKey]?: BrandMarker<T, F> };

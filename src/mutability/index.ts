@@ -1,2 +1,2 @@
-export type { Immutable } from './immutable.js';
-export type { Mutable } from './mutable.js';
+export type { DeepImmutable, Immutable } from './immutable.js';
+export type { DeepMutable, Mutable } from './mutable.js';

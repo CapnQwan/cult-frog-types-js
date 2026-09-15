@@ -1,4 +1,4 @@
-import type { Brand } from './brand.js';
+import type { BrandKey, BrandMarker } from './symbol.js';
 
 /**
  * Recovers the underlying base type from a {@link Brand}, stripping the marker.
@@ -12,4 +12,6 @@ import type { Brand } from './brand.js';
  * type UserId = Brand<string, "UserId">;
  * type Raw = Unbrand<UserId>; // string
  */
-export type Unbrand<T> = T extends Brand<infer U, string> ? U : T;
+export type Unbrand<T> = T extends { readonly [K in BrandKey]: BrandMarker<infer U, string> }
+  ? U
+  : T;

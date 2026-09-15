@@ -1,20 +1,26 @@
 /**
- * Makes the selected keys `K` of `T` optional while leaving the rest unchanged.
+ * Extracts the union of key names in `T` that are declared optional (`?`).
  *
- * TypeScript's built-in `Partial<T>` makes *every* property optional. This type
- * lets you loosen only the specific keys you name, which is ideal for shapes
- * where some fields have defaults or are filled in later.
+ * The test works by asking whether the empty object `{}` satisfies a one-key
+ * slice of `T`: that only holds when the key may be absent, which is exactly
+ * what "optional" means. Note that this is about the `?` modifier, not the value
+ * type — a key declared `a: string | undefined` is *required* and will not be
+ * included, while `a?: string` will.
  *
- * @template T The object type to transform.
- * @template K The keys of `T` to make optional.
+ * Pairs with {@link RequiredKeys}, which returns the complement. If you want to
+ * *make* keys optional rather than list them, use {@link SetOptional}.
+ *
+ * @template T The object type to inspect.
  *
  * @example
- * interface Config {
- *   host: string;
- *   port: number;
- *   timeout: number;
+ * interface User {
+ *   id: string;
+ *   name?: string;
+ *   email?: string;
  * }
- * // `port` and `timeout` are optional; `host` stays required.
- * type PartialConfig = OptionalKeys<Config, "port" | "timeout">;
+ * type Opt = OptionalKeys<User>; // "name" | "email"
  */
-export type OptionalKeys<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+export type OptionalKeys<T> = {
+  // biome-ignore lint/complexity/noBannedTypes: `{} extends Pick<T, K>` is the canonical test for the `?` modifier and `Record<string, never>` does not behave the same way.
+  [K in keyof T]-?: {} extends Pick<T, K> ? K : never;
+}[keyof T];

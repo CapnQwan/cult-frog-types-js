@@ -5,6 +5,11 @@
  * finding every string field on a model, or every method on a class. Keys whose
  * value type does not match `V` are filtered out (mapped to `never` and dropped).
  *
+ * Two caveats follow from using `extends`: a property typed `any` matches every
+ * `V` (so `KeysOfType<{ a: any }, string>` includes `"a"`), and a property typed
+ * as a union only matches when the *whole* union is assignable to `V` (so
+ * `KeysOfType<{ a: string | number }, string>` excludes `"a"`).
+ *
  * @template T The object type to inspect.
  * @template V The value type to match against.
  *
