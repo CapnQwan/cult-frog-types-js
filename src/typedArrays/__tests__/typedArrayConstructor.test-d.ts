@@ -2,10 +2,7 @@ import { describe, expectTypeOf, it } from 'vitest';
 
 import type { TypedArrayConstructor, TypedArrayView } from '../index.js';
 
-function view<T extends TypedArrayView<T, B>, B extends ArrayBufferLike>(
-  ctor: TypedArrayConstructor<T, B>,
-  buffer: B
-): T {
+function view<T extends TypedArrayView<T>>(ctor: TypedArrayConstructor<T>, buffer: T['buffer']): T {
   return new ctor(buffer);
 }
 
@@ -17,6 +14,15 @@ describe('TypedArrayConstructor', () => {
       SharedArrayBuffer
     > = Float32Array;
     const either: TypedArrayConstructor<Float32Array> = Float32Array;
+  });
+
+  it("defaults the buffer type to T's buffer", () => {
+    expectTypeOf<TypedArrayConstructor<Float32Array<SharedArrayBuffer>>>().toEqualTypeOf<
+      TypedArrayConstructor<Float32Array<SharedArrayBuffer>, SharedArrayBuffer>
+    >();
+    expectTypeOf<TypedArrayConstructor<Float32Array>>().toEqualTypeOf<
+      TypedArrayConstructor<Float32Array, ArrayBufferLike>
+    >();
   });
 
   it('rejects a constructor for a different element type', () => {
@@ -35,12 +41,19 @@ describe('TypedArrayConstructor', () => {
     >();
   });
 
-  it('produces the concrete array type over a SharedArrayBuffer with explicit type arguments', () => {
+  it('produces the concrete array type over a SharedArrayBuffer with an explicit type argument', () => {
     expectTypeOf(
-      view<Uint16Array<SharedArrayBuffer>, SharedArrayBuffer>(
-        Uint16Array,
-        new SharedArrayBuffer(16)
-      )
+      view<Uint16Array<SharedArrayBuffer>>(Uint16Array, new SharedArrayBuffer(16))
     ).toEqualTypeOf<Uint16Array<SharedArrayBuffer>>();
+  });
+
+  it('rejects a SharedArrayBuffer when the array type is left to inference', () => {
+    // @ts-expect-error inference lands on Uint16Array<ArrayBuffer>, which needs an ArrayBuffer.
+    view(Uint16Array, new SharedArrayBuffer(16));
+  });
+
+  it('rejects a buffer that does not match the named array type', () => {
+    // @ts-expect-error a Uint16Array<SharedArrayBuffer> cannot be built over an ArrayBuffer.
+    view<Uint16Array<SharedArrayBuffer>>(Uint16Array, new ArrayBuffer(16));
   });
 });

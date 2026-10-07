@@ -15,7 +15,8 @@
  * @template Self The concrete typed array type, returned by `subarray`,
  * `copyWithin` and `fill`.
  * @template B The backing buffer type. Defaults to `ArrayBufferLike`; narrow it
- * to `ArrayBuffer` or `SharedArrayBuffer` when the distinction matters.
+ * to `ArrayBuffer` or `SharedArrayBuffer` when the distinction matters. In
+ * generic code, `T['buffer']` gives back a `T`'s own buffer type.
  *
  * @example
  * function head<T extends TypedArrayView<T>>(array: T, count: number): T {
