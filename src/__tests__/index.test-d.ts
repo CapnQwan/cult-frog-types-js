@@ -36,7 +36,7 @@ import type {
   Unbrand,
   Unsubscribe,
   ValueOf,
-} from './index.js';
+} from '../index.js';
 
 /**
  * Guards the package's public surface.

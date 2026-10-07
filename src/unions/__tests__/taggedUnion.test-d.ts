@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 
-import type { TaggedUnion } from './index.js';
+import type { TaggedUnion } from '../index.js';
 
 type Result =
   | TaggedUnion<'success', { value: number }>
