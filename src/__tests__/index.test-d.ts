@@ -33,6 +33,8 @@ import type {
   SetRequired,
   Simplify,
   TaggedUnion,
+  TypedArrayConstructor,
+  TypedArrayView,
   Unbrand,
   Unsubscribe,
   ValueOf,
@@ -84,7 +86,9 @@ describe('public API surface', () => {
       IsAny<any>,
       IsNever<never>,
       TaggedUnion<'t'>,
+      TypedArrayView<Float32Array>,
+      TypedArrayConstructor<Float32Array>,
     ];
-    expectTypeOf<Surface['length']>().toEqualTypeOf<35>();
+    expectTypeOf<Surface['length']>().toEqualTypeOf<37>();
   });
 });

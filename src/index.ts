@@ -5,4 +5,5 @@ export type * from './mutability/index.js';
 export type * from './records/index.js';
 export type * from './serialization/index.js';
 export type * from './test/index.js';
+export type * from './typedArrays/index.js';
 export type * from './unions/index.js';
