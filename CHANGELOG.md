@@ -5,6 +5,8 @@ follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-11
+
 ### Fixed
 
 - The published package no longer includes the type test files
