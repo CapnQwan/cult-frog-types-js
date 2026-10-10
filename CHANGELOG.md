@@ -3,7 +3,16 @@
 All notable changes to `@cult-frog/types` are documented here. This project
 follows [Semantic Versioning](https://semver.org/).
 
-## [0.2.0] - 2026-10-07
+## [Unreleased]
+
+### Fixed
+
+- The published package no longer includes the type test files
+  (`src/**/__tests__`), and now ships this changelog.
+
+## [1.0.0] - 2026-10-07
+
+First stable release.
 
 ### Added
 
@@ -37,5 +46,6 @@ follows [Semantic Versioning](https://semver.org/).
 Initial release: array, brand, lifecycle, mutability, record, serialization,
 type-testing and tagged-union utility types.
 
-[0.2.0]: https://github.com/CapnQwan/cult-frog-types-js/compare/6edbdaf...560c380
+[Unreleased]: https://github.com/CapnQwan/cult-frog-types-js/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/CapnQwan/cult-frog-types-js/compare/6edbdaf...v1.0.0
 [0.1.0]: https://github.com/CapnQwan/cult-frog-types-js/commit/6edbdaf
